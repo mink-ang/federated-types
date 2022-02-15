@@ -58,7 +58,7 @@ const federationConfig = require(federationConfigPath);
 const compileFiles = Object.values(federationConfig.exposes);
 const compileKeys = Object.keys(federationConfig.exposes);
 const outFile = path.resolve(outputDir, `${federationConfig.name}.d.ts`);
-let typing
+let typing = ""
 
 try {
     if (fs.existsSync(outFile)) {
