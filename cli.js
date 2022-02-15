@@ -58,9 +58,11 @@ const federationConfig = require(federationConfigPath);
 const compileFiles = Object.values(federationConfig.exposes);
 const compileKeys = Object.keys(federationConfig.exposes);
 const outFile = path.resolve(outputDir, `${federationConfig.name}.d.ts`);
+let typing
 
 try {
     if (fs.existsSync(outFile)) {
+        typing = fs.readFileSync(outFile, { encoding: 'utf8', flag: 'r' });
         fs.unlinkSync(outFile);
     }
 
@@ -75,8 +77,6 @@ try {
     });
 
     program.emit();
-
-    let typing = fs.readFileSync(outFile, { encoding: 'utf8', flag: 'r' });
 
     const moduleRegex = RegExp(/declare module "(.*)"/, 'g');
     const moduleNames = [];
